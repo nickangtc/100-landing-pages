@@ -4,12 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Album — A private space for your memories</title>
+  <title>Album — Social media for your inner circle</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap"
     rel="stylesheet">
+  <!-- Prefetch all hero images -->
+  <link rel="preload" as="image" href="inner_circle.jpg">
+  <link rel="preload" as="image" href="sovereign_individual.jpg">
+  <link rel="preload" as="image" href="supposed_to_be.jpg">
   <style>
     *,
     *::before,
@@ -35,29 +39,40 @@
 
     body {
       font-family: 'DM Sans', sans-serif;
-      background-color: var(--bg);
+      background-color: #000;
       color: var(--text);
       height: 100vh;
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      background-image: url('hero-bg.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
       position: relative;
     }
 
-    body::before {
+    /* Stacked background slides */
+    .bg-slide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+      z-index: 0;
+    }
+
+    .bg-slide.active {
+      opacity: 1;
+    }
+
+    .bg-slide::after {
       content: '';
       position: absolute;
       inset: 0;
       background: linear-gradient(to right,
           rgba(0, 0, 0, 0.7) 0%,
-          rgba(0, 0, 0, 0.55) 20%,
-          rgba(0, 0, 0, 0.3) 33%,
-          rgba(0, 0, 0, 0) 45%);
-      z-index: 0;
+          rgba(0, 0, 0, 0.55) 25%,
+          rgba(0, 0, 0, 0.3) 40%,
+          rgba(0, 0, 0, 0) 55%);
     }
 
     nav,
@@ -137,9 +152,42 @@
       font-size: 5.5vh;
       line-height: 1.05;
       letter-spacing: -0.02em;
-      margin-bottom: 2.5vh;
       color: #fff;
-      max-width: 35vw;
+      max-width: 50vw;
+      margin-bottom: 2.5vh;
+    }
+
+    .hero-tagline-wrapper {
+      display: block;
+      min-height: 6vh;
+    }
+
+    .hero-tagline-text {
+      font-family: 'DM Serif Display', serif;
+      font-weight: 400;
+      font-size: 5.5vh;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: #fff;
+      display: inline;
+    }
+
+    /* Typewriter cursor */
+    .hero-tagline-text::after {
+      content: '|';
+      animation: blink 0.7s step-end infinite;
+      margin-left: 2px;
+      font-weight: 300;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .hero-tagline-text.typing::after {
+      opacity: 1;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
     }
 
     .hero p {
@@ -147,7 +195,7 @@
       line-height: 1.65;
       color: rgba(255, 255, 255, 0.85);
       font-weight: 500;
-      max-width: 28vw;
+      max-width: 40vw;
       margin-bottom: 3.5vh;
     }
 
@@ -237,6 +285,7 @@
       width: calc(100% - 2rem);
       transform: translateY(8px);
       transition: transform 0.3s ease;
+      position: relative;
     }
 
     .modal-overlay.active .modal {
@@ -320,10 +369,6 @@
       line-height: 1;
     }
 
-    .modal {
-      position: relative;
-    }
-
     .modal-error {
       color: #c44;
       font-size: 0.85rem;
@@ -332,11 +377,11 @@
 
     /* Mobile responsive */
     @media (max-width: 768px) {
-      body {
+      .bg-slide {
         background-position: 60% center;
       }
 
-      body::before {
+      .bg-slide::after {
         background: linear-gradient(to right,
             rgba(0, 0, 0, 0.8) 0%,
             rgba(0, 0, 0, 0.6) 40%,
@@ -376,6 +421,14 @@
         margin-bottom: 16px;
       }
 
+      .hero-tagline-wrapper {
+        min-height: 36px;
+      }
+
+      .hero-tagline-text {
+        font-size: 32px;
+      }
+
       .hero p {
         font-size: 15px;
         max-width: 100%;
@@ -409,6 +462,11 @@
 </head>
 
 <body>
+  <!-- Background image slides -->
+  <div class="bg-slide active" style="background-image: url('inner_circle.jpg')"></div>
+  <div class="bg-slide" style="background-image: url('sovereign_individual.jpg')"></div>
+  <div class="bg-slide" style="background-image: url('supposed_to_be.jpg')"></div>
+
   <nav>
     <div class="nav-logo">📖</div>
     <div class="nav-links">
@@ -418,9 +476,13 @@
   </nav>
 
   <main class="hero">
-    <h1>You stopped posting.<br>But you didn't stop taking photos.</h1>
-    <p>Album is for the moments you still want to share - just not with everyone. A private space to keep your family's
-      memories safe and close.</p>
+    <h1>
+      Social media<br>
+      <span class="hero-tagline-wrapper">
+        <span class="hero-tagline-text" id="tagline">for your inner circle.</span>
+      </span>
+    </h1>
+    <p>When you want to keep memories and share with people close to you<br>without paying for it with your data, privacy, and attention.</p>
     <a href="#" class="btn-cta" data-open-modal>
       <span class="dot"></span>
       Join the Waitlist
@@ -445,6 +507,81 @@
   </div>
 
   <script>
+    // Slideshow with typewriter
+    const slides = document.querySelectorAll('.bg-slide');
+    const tagline = document.getElementById('tagline');
+    const taglines = [
+      'for your inner circle.',
+      'for the sovereign individual.',
+      "the way it's supposed to be."
+    ];
+    let current = 0;
+    const total = slides.length;
+    const INTERVAL = 5000;
+    const TYPE_SPEED = 35;
+    const DELETE_SPEED = 25;
+    const BG_DELAY = 200; // bg starts transitioning this many ms after delete begins
+
+    function deleteText(el) {
+      return new Promise(resolve => {
+        const text = el.textContent;
+        let i = text.length;
+        el.classList.add('typing');
+        const timer = setInterval(() => {
+          i--;
+          el.textContent = text.slice(0, i);
+          if (el.textContent === '') {
+            clearInterval(timer);
+            el.classList.remove('typing');
+            resolve();
+          }
+        }, DELETE_SPEED);
+      });
+    }
+
+    function typeText(el, text) {
+      return new Promise(resolve => {
+        let i = 0;
+        el.classList.add('typing');
+        const timer = setInterval(() => {
+          i++;
+          el.textContent = text.slice(0, i);
+          if (el.textContent === text) {
+            clearInterval(timer);
+            el.classList.remove('typing');
+            resolve();
+          }
+        }, TYPE_SPEED);
+      });
+    }
+
+    async function nextSlide() {
+      const prev = current;
+      current = (current + 1) % total;
+
+      // Start deleting text and transition bg together
+      const deletePromise = deleteText(tagline);
+
+      setTimeout(() => {
+        slides[prev].classList.remove('active');
+        slides[current].classList.add('active');
+      }, BG_DELAY);
+
+      await deletePromise;
+
+      // Small pause before typing new text
+      await new Promise(r => setTimeout(r, 300));
+
+      // Type new text after bg has started transitioning
+      await typeText(tagline, taglines[current]);
+
+      // Schedule next cycle only after this one completes
+      setTimeout(nextSlide, INTERVAL);
+    }
+
+    setTimeout(nextSlide, INTERVAL);
+
+    // Modal
     const modal = document.getElementById('modal');
 
     document.querySelectorAll('[data-open-modal]').forEach(el => {
@@ -476,11 +613,6 @@
       e.target.style.display = 'none';
     });
   </script>
-  <!-- Hero image generated with Nano Banana 2 Mini model.
-       Prompt: "An asian family of 3 in the backyard on a sunny day at the golden hour.
-       Dad is at the table near the sliding doors with a cup of coffee. He is looking at
-       his young daughter playing with a ball. Mum is approaching the empty chair opposite
-       dad with a plate of cake. The scene exudes warmth of familial intimacy" -->
 </body>
 
 </html>

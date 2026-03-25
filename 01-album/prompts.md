@@ -141,3 +141,15 @@ now let's publish this on github pages! create an index page that is just a plai
 **Prompt 23** | 2026-03-24 01:28
 
 btw lets document we used nano banana 2 mini model for image generation and the prompt was "An asian family of 3 in the backyard on a sunny day at the golden hour. Dad is at the table near the sliding doors with a cup of coffee. He is looking at his young daughter playing with a ball. Mum is approaching the empty chair opposite dad with a plate of cake. The scene exudes warmth of familial intimacy" - add that to the first site. commit push
+
+---
+
+**Prompt 24** | 2026-03-24
+
+see 100-landing-pages/01-album/ - port this as the landing page for album/ which already has a landing page but i like the 100 landing pages one better. set up the waitlist to actually work in collecting emails.
+
+---
+
+**Prompt 25** | 2026-03-25 00:00
+
+see @../album/ landing page. it's a copy but improved from our @01-album/index.html . i made improvements from ours yesterday and deployed it to our actual project! so now let's update our own version first. then we'll start work on a second landing page.
