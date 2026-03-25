@@ -31,3 +31,15 @@ perfect. comit push
 **Prompt 5** | 2026-03-24 00:03
 
 (skill created: prompt-logger)
+
+---
+
+**Prompt 6** | 2026-03-25 00:00
+
+Do a web search and find the real canonical post or tweet from Visakhan Virasamy and link it properly to the readme. You can find that the readme currently links to a broken page.
+
+---
+
+**Prompt 7** | 2026-03-25 00:01
+
+commit push!
